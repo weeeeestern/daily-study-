@@ -1,0 +1,3 @@
+CRON_TZ=Asia/Seoul
+0 9 * * * /usr/bin/python3 /opt/studybot/scripts/generate_daily.py >> /opt/studybot/logs/gen.log 2>&1
+0 23 * * * /usr/bin/python3 /opt/studybot/scripts/push_if_done.py >> /opt/studybot/logs/push.log 2>&1

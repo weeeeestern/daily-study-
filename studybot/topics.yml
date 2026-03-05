@@ -1,0 +1,299 @@
+- id: linux-win-arch-01
+  title: Monolithic vs Hybrid Kernel Foundations
+  summary: Compare Linux monolithic kernel modules with Windows NT hybrid architecture.
+  linux_focus: Kernel module loading path and syscall flow.
+  windows_focus: Executive, kernel mode layers, and object manager relationship.
+  practice: Draw a side-by-side kernel path diagram for process creation.
+  reading_links:
+    - https://www.kernel.org/doc/html/latest/
+    - https://learn.microsoft.com/windows-hardware/drivers/kernel/
+
+- id: linux-win-arch-02
+  title: User Mode and Kernel Mode Transitions
+  summary: Understand privilege transitions and syscall handling in both OS families.
+  linux_focus: syscall ABI, seccomp, and context switch cost.
+  windows_focus: ntdll stubs, system service dispatch table basics.
+  practice: Trace one file open path on each platform.
+  reading_links:
+    - https://man7.org/linux/man-pages/man2/syscall.2.html
+    - https://learn.microsoft.com/windows/win32/sysinfo/about-windows-system-architecture
+
+- id: fs-01
+  title: ext4 Metadata Design vs NTFS MFT
+  summary: Compare inode-based metadata and MFT-based metadata indexing.
+  linux_focus: inode, journal, and block group behavior.
+  windows_focus: MFT entries, attributes, and USN journal overview.
+  practice: List 5 metadata operations and map where they are stored.
+  reading_links:
+    - https://ext4.wiki.kernel.org/
+    - https://learn.microsoft.com/windows/win32/fileio/file-systems
+
+- id: fs-02
+  title: Journaling and Crash Recovery
+  summary: Study consistency guarantees after sudden power loss.
+  linux_focus: ext4 journaling modes (ordered, writeback, journal).
+  windows_focus: NTFS logging and transaction recovery concepts.
+  practice: Simulate crash-recovery sequence conceptually for both.
+  reading_links:
+    - https://www.kernel.org/doc/html/latest/filesystems/ext4/
+    - https://learn.microsoft.com/windows/win32/fileio/master-file-table
+
+- id: proc-01
+  title: Linux Process Model vs Windows Process/Thread Objects
+  summary: Compare task_struct model with Windows process and thread objects.
+  linux_focus: fork/exec model, PID namespace basics.
+  windows_focus: process handles, token association, thread scheduling entities.
+  practice: Write lifecycle steps from creation to termination.
+  reading_links:
+    - https://man7.org/linux/man-pages/man2/fork.2.html
+    - https://learn.microsoft.com/windows/win32/procthread/processes-and-threads
+
+- id: proc-02
+  title: Scheduling Classes and Priorities
+  summary: Understand scheduling strategies and fairness vs responsiveness tradeoffs.
+  linux_focus: CFS, real-time classes, nice levels.
+  windows_focus: priority classes, dynamic boost behavior.
+  practice: Compare latency-sensitive workload tuning knobs.
+  reading_links:
+    - https://www.kernel.org/doc/html/latest/scheduler/
+    - https://learn.microsoft.com/windows/win32/procthread/scheduling-priorities
+
+- id: svc-01
+  title: systemd Units vs Windows Services
+  summary: Compare service definition, dependency model, and lifecycle control.
+  linux_focus: unit files, targets, restart policy.
+  windows_focus: SCM database, service states, recovery actions.
+  practice: Build equivalent service config examples.
+  reading_links:
+    - https://www.freedesktop.org/software/systemd/man/systemd.service.html
+    - https://learn.microsoft.com/windows/win32/services/services
+
+- id: svc-02
+  title: Boot Targets vs Boot Configuration Data
+  summary: Contrast boot flow configuration and boot-time service startup.
+  linux_focus: boot loader to systemd target transition.
+  windows_focus: BCD store and early boot drivers.
+  practice: Draw boot sequence timeline for both systems.
+  reading_links:
+    - https://www.freedesktop.org/wiki/Software/systemd/
+    - https://learn.microsoft.com/windows-hardware/drivers/devtest/bcdedit--set
+
+- id: pkg-01
+  title: APT/DNF Package Graph vs MSI Ecosystem
+  summary: Compare dependency resolution, package metadata, and rollback behavior.
+  linux_focus: repositories, signing, dependency graph.
+  windows_focus: MSI install database, winget/choco layering.
+  practice: Install and remove one CLI tool in each ecosystem.
+  reading_links:
+    - https://wiki.debian.org/Teams/Apt
+    - https://learn.microsoft.com/windows/package-manager/
+
+- id: pkg-02
+  title: Software Distribution Trust Models
+  summary: Study signatures, repository trust, and policy controls.
+  linux_focus: GPG trust chain and repo pinning.
+  windows_focus: Authenticode signatures and SmartScreen checks.
+  practice: Verify signatures for a downloaded package.
+  reading_links:
+    - https://manpages.debian.org/apt-secure
+    - https://learn.microsoft.com/windows/security/application-security/application-control/
+
+- id: sec-01
+  title: DAC, MAC, and ACL Fundamentals
+  summary: Compare Linux DAC/MAC stack with Windows ACL-based security descriptors.
+  linux_focus: chmod/chown, SELinux/AppArmor overview.
+  windows_focus: DACL/SACL, SID and token basics.
+  practice: Map one policy rule across both models.
+  reading_links:
+    - https://selinuxproject.org/page/Main_Page
+    - https://learn.microsoft.com/windows/win32/secauthz/access-control-model
+
+- id: sec-02
+  title: Linux Capabilities vs Windows Privileges
+  summary: Understand fine-grained privilege decomposition strategies.
+  linux_focus: capability bounding set and ambient capabilities.
+  windows_focus: token privileges and UAC elevation model.
+  practice: Identify least-privilege setup for admin tasks.
+  reading_links:
+    - https://man7.org/linux/man-pages/man7/capabilities.7.html
+    - https://learn.microsoft.com/windows/security/identity-protection/user-account-control/
+
+- id: kernel-01
+  title: Driver Model Comparison
+  summary: Explore kernel driver loading, signing, and update handling.
+  linux_focus: module signing, DKMS, udev events.
+  windows_focus: WDM/WDF, driver signing and PnP stack.
+  practice: Compare printer driver install flow end-to-end.
+  reading_links:
+    - https://docs.kernel.org/driver-api/
+    - https://learn.microsoft.com/windows-hardware/drivers/
+
+- id: kernel-02
+  title: Memory Management Differences
+  summary: Compare virtual memory handling and paging approaches.
+  linux_focus: page cache, swappiness, cgroups memory control.
+  windows_focus: working set, pagefile, memory compression.
+  practice: Observe memory statistics under stress tools.
+  reading_links:
+    - https://www.kernel.org/doc/html/latest/admin-guide/mm/
+    - https://learn.microsoft.com/windows/win32/memory/memory-management-functions
+
+- id: upd-01
+  title: Linux Update Channels vs Windows Update Rings
+  summary: Study staged rollout patterns and patch governance.
+  linux_focus: stable/testing channels and unattended upgrades.
+  windows_focus: WSUS/Intune rings and defer policies.
+  practice: Draft patch cadence policy for a small team.
+  reading_links:
+    - https://wiki.ubuntu.com/StableReleaseUpdates
+    - https://learn.microsoft.com/windows/deployment/update/
+
+- id: upd-02
+  title: Reboot Semantics and Live Patching
+  summary: Compare reboot requirements and live patch strategies.
+  linux_focus: kpatch/livepatch options and service restart planning.
+  windows_focus: servicing stack and cumulative update reboot behavior.
+  practice: Build reboot decision checklist.
+  reading_links:
+    - https://ubuntu.com/security/livepatch
+    - https://learn.microsoft.com/windows/deployment/update/windows-update-overview
+
+- id: lic-01
+  title: GPL Ecosystem vs Proprietary Licensing
+  summary: Understand legal and operational implications of OS licensing.
+  linux_focus: GPL obligations and distro redistribution model.
+  windows_focus: commercial licensing tiers and activation controls.
+  practice: Summarize compliance concerns for enterprise use.
+  reading_links:
+    - https://www.gnu.org/licenses/gpl-3.0.en.html
+    - https://www.microsoft.com/licensing
+
+- id: lic-02
+  title: Open Source Governance vs Vendor Governance
+  summary: Compare release authority, contribution process, and roadmap transparency.
+  linux_focus: maintainer tree and RFC patch process.
+  windows_focus: closed-source roadmap and support lifecycle contracts.
+  practice: Contrast risk profile for long-term support.
+  reading_links:
+    - https://www.kernel.org/doc/html/latest/process/
+    - https://learn.microsoft.com/lifecycle/
+
+- id: cont-01
+  title: Linux Containers vs Windows Containers
+  summary: Compare namespace/cgroup model with Windows container isolation modes.
+  linux_focus: PID/net namespaces and cgroups v2.
+  windows_focus: process vs Hyper-V isolation and image layers.
+  practice: Run hello-world containers on both runtimes.
+  reading_links:
+    - https://docs.docker.com/engine/security/
+    - https://learn.microsoft.com/virtualization/windowscontainers/
+
+- id: cont-02
+  title: Container Filesystems and Image Layering
+  summary: Understand overlay filesystems and layer reuse differences.
+  linux_focus: overlay2 behavior and copy-on-write costs.
+  windows_focus: Windows image layer format and base image management.
+  practice: Inspect image history and layer sizes.
+  reading_links:
+    - https://docs.docker.com/storage/storagedriver/overlayfs-driver/
+    - https://learn.microsoft.com/virtualization/windowscontainers/manage-containers/container-base-images
+
+- id: virt-01
+  title: KVM/QEMU vs Hyper-V Architecture
+  summary: Compare hypervisor architecture and host integration.
+  linux_focus: KVM modules, libvirt control plane.
+  windows_focus: Hyper-V partitions, VMBus basics.
+  practice: Draw host/guest boundary and I/O path.
+  reading_links:
+    - https://www.qemu.org/docs/master/system/
+    - https://learn.microsoft.com/virtualization/hyper-v-on-windows/
+
+- id: virt-02
+  title: Nested Virtualization and Performance
+  summary: Study nested virtualization support and performance caveats.
+  linux_focus: KVM nested flags and CPU passthrough.
+  windows_focus: Hyper-V nested enablement and constraints.
+  practice: Benchmark simple CPU and disk tests in nested guest.
+  reading_links:
+    - https://docs.kernel.org/virt/kvm/
+    - https://learn.microsoft.com/virtualization/hyper-v-on-windows/user-guide/nested-virtualization
+
+- id: net-01
+  title: Linux Netfilter vs Windows Filtering Platform
+  summary: Compare packet filtering frameworks and hook points.
+  linux_focus: nftables chain flow and conntrack.
+  windows_focus: WFP layers and policy providers.
+  practice: Define equivalent inbound rule in both stacks.
+  reading_links:
+    - https://wiki.nftables.org/
+    - https://learn.microsoft.com/windows/win32/fwp/windows-filtering-platform-start-page
+
+- id: net-02
+  title: TCP/IP Stack Tuning Knobs
+  summary: Analyze key networking tunables and diagnostics.
+  linux_focus: sysctl tcp settings and ss/ip tools.
+  windows_focus: netsh/powershell stack options and perf counters.
+  practice: Measure RTT and retransmit changes with one tuning option.
+  reading_links:
+    - https://man7.org/linux/man-pages/man7/tcp.7.html
+    - https://learn.microsoft.com/windows-server/networking/technologies/netsh/netsh-contexts
+
+- id: auth-01
+  title: PAM vs Windows Credential Providers
+  summary: Compare authentication flow extensibility.
+  linux_focus: PAM module stack and SSH auth chain.
+  windows_focus: logon UI providers and LSASS integration.
+  practice: Map login sequence components.
+  reading_links:
+    - https://linux.die.net/man/8/pam
+    - https://learn.microsoft.com/windows/win32/secauthn/authentication-portal
+
+- id: auth-02
+  title: Local Identity and Directory Integration
+  summary: Contrast Linux identity services with Active Directory integration.
+  linux_focus: NSS, SSSD, LDAP/Kerberos integration.
+  windows_focus: AD domain join and group policy relationships.
+  practice: Document account lifecycle in each environment.
+  reading_links:
+    - https://sssd.io/docs/
+    - https://learn.microsoft.com/windows-server/identity/ad-ds/
+
+- id: observ-01
+  title: Linux Journald vs Windows Event Logs
+  summary: Compare log structure, transport, and filtering workflows.
+  linux_focus: journalctl querying and persistent journal config.
+  windows_focus: event channels and XML query filters.
+  practice: Create one troubleshooting playbook per platform.
+  reading_links:
+    - https://www.freedesktop.org/software/systemd/man/journalctl.html
+    - https://learn.microsoft.com/windows/win32/eventlog/event-logging
+
+- id: observ-02
+  title: Tracing with eBPF vs ETW
+  summary: Learn dynamic tracing approaches for performance and diagnostics.
+  linux_focus: eBPF tracing basics and safety constraints.
+  windows_focus: ETW providers, sessions, and consumers.
+  practice: Capture one process-related trace in each system.
+  reading_links:
+    - https://ebpf.io/what-is-ebpf/
+    - https://learn.microsoft.com/windows/win32/etw/event-tracing-portal
+
+- id: ops-01
+  title: Automation Tooling: Bash/Systemd Timers vs PowerShell/Task Scheduler
+  summary: Compare native automation primitives.
+  linux_focus: cron vs systemd timer reliability considerations.
+  windows_focus: scheduled tasks and PowerShell remoting.
+  practice: Build same daily task in both environments.
+  reading_links:
+    - https://man7.org/linux/man-pages/man5/crontab.5.html
+    - https://learn.microsoft.com/powershell/
+
+- id: ops-02
+  title: Incident Recovery and Safe Mode Paths
+  summary: Compare recovery environments and rollback tactics.
+  linux_focus: rescue target, initramfs recovery, package rollback options.
+  windows_focus: WinRE, safe mode, system restore points.
+  practice: Draft an incident runbook skeleton.
+  reading_links:
+    - https://wiki.archlinux.org/title/System_recovery
+    - https://learn.microsoft.com/windows-hardware/manufacture/desktop/windows-recovery-environment--windows-re--technical-reference
