@@ -1,0 +1,330 @@
+topics:
+  - id: linux-windows-architecture-overview
+    title: "Linux vs Windows Architecture Overview"
+    summary: "Compare the overall operating system architecture of Linux and Windows, focusing on design philosophy, layering, and how user space and kernel space are organized."
+    linux_focus: "Monolithic kernel with modular components, Unix heritage, userland and kernel separation, configurable distributions."
+    windows_focus: "Hybrid kernel design, NT architecture, subsystem model, tighter integration between core components and platform services."
+    practice: "Draw a simple layered diagram of both systems and explain the role of kernel, drivers, services, and user applications."
+    reading_links:
+      - https://learn.microsoft.com/en-us/windows-hardware/drivers/gettingstarted/architecture-of-the-windows-kernel
+      - https://www.kernel.org/doc/html/latest/admin-guide/overview.html
+
+  - id: kernel-design-monolithic-vs-hybrid
+    title: "Kernel Design: Monolithic vs Hybrid"
+    summary: "Study how Linux and Windows kernels differ in internal structure and why those design choices matter for performance, flexibility, and maintainability."
+    linux_focus: "Monolithic kernel design with loadable modules, direct in-kernel services, performance-oriented structure."
+    windows_focus: "Hybrid kernel with executive, kernel, HAL, and subsystem concepts balancing modularity and compatibility."
+    practice: "Explain why Linux is often called monolithic even though it supports modules, and why Windows is often described as hybrid."
+    reading_links:
+      - https://en.wikipedia.org/wiki/Monolithic_kernel
+      - https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/windows-kernel-mode-process-and-thread-manager
+
+  - id: user-space-and-kernel-space
+    title: "User Space vs Kernel Space"
+    summary: "Learn how both operating systems isolate privileged code from normal applications and why this boundary is central to security and stability."
+    linux_focus: "System calls, privilege rings, process isolation, kernel-mediated hardware access."
+    windows_focus: "User mode vs kernel mode, NT executive services, Win32 subsystem interaction, protected transitions."
+    practice: "Describe what happens when a text editor saves a file and must cross from user space into kernel space."
+    reading_links:
+      - https://man7.org/linux/man-pages/man2/syscalls.2.html
+      - https://learn.microsoft.com/en-us/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode
+
+  - id: process-model-fork-exec-vs-createprocess
+    title: "Process Model: fork/exec vs CreateProcess"
+    summary: "Compare how Linux and Windows start new programs and manage parent-child relationships between processes."
+    linux_focus: "fork, exec, copy-on-write, parent-child process trees, shell spawning model."
+    windows_focus: "CreateProcess, process handles, startup info, process object management."
+    practice: "Trace how a shell launches a command in Linux, then compare it with what a GUI or terminal launcher does in Windows."
+    reading_links:
+      - https://man7.org/linux/man-pages/man2/fork.2.html
+      - https://learn.microsoft.com/en-us/windows/win32/procthread/creating-processes
+
+  - id: threads-and-scheduling
+    title: "Threads and Scheduling"
+    summary: "Understand how both systems schedule execution units, prioritize work, and balance responsiveness with throughput."
+    linux_focus: "POSIX threads, CFS scheduler basics, nice values, cgroups influence."
+    windows_focus: "Native threads, priority classes, scheduler quantum behavior, foreground responsiveness."
+    practice: "Compare how CPU-intensive and interactive tasks are treated under each operating system."
+    reading_links:
+      - https://www.kernel.org/doc/html/latest/scheduler/sched-design-CFS.html
+      - https://learn.microsoft.com/en-us/windows/win32/procthread/scheduling-priorities
+
+  - id: service-management-systemd-vs-scm
+    title: "Service Management: systemd vs Service Control Manager"
+    summary: "Compare how Linux and Windows start, supervise, and manage background services."
+    linux_focus: "systemd units, targets, journald integration, service dependency graphs."
+    windows_focus: "Service Control Manager, Windows services, startup types, event log integration."
+    practice: "Explain how you would diagnose a service that fails at boot in Linux and in Windows."
+    reading_links:
+      - https://www.freedesktop.org/software/systemd/man/systemd.html
+      - https://learn.microsoft.com/en-us/windows/win32/services/service-programs
+
+  - id: package-management-apt-dnf-vs-winget-msi
+    title: "Package Management: apt/dnf vs winget/MSI"
+    summary: "Study how software installation, updates, dependencies, and repositories differ between Linux and Windows ecosystems."
+    linux_focus: "Repository-based package management, signed packages, dependency resolution, distro package conventions."
+    windows_focus: "MSI installers, EXE installers, winget, Microsoft Store, mixed distribution channels."
+    practice: "Compare the operational advantages of repository-based installs with standalone installer downloads."
+    reading_links:
+      - https://wiki.debian.org/Apt
+      - https://learn.microsoft.com/en-us/windows/package-manager/winget/
+
+  - id: filesystem-ext4-vs-ntfs
+    title: "File Systems: ext4 vs NTFS"
+    summary: "Compare two common file systems in terms of metadata, journaling, permissions, and operational behavior."
+    linux_focus: "ext4 journaling, inode model, Unix permissions, mount options."
+    windows_focus: "NTFS MFT, ACLs, alternate data streams, Windows file attributes."
+    practice: "Explain how file ownership and permissions differ conceptually between ext4 and NTFS."
+    reading_links:
+      - https://www.kernel.org/doc/html/latest/filesystems/ext4/index.html
+      - https://learn.microsoft.com/en-us/windows/win32/fileio/file-streams
+
+  - id: file-permissions-unix-mode-vs-acl
+    title: "File Permissions: Unix Modes vs ACLs"
+    summary: "Learn how Linux and Windows represent file access control and why the models feel different in daily administration."
+    linux_focus: "rwx bits, user/group/other, POSIX ACL extensions, chmod and chown."
+    windows_focus: "Security descriptors, DACLs, inherited permissions, SID-based access control."
+    practice: "Compare a simple shared-folder scenario in both systems and describe how you would grant read-only access to one user."
+    reading_links:
+      - https://man7.org/linux/man-pages/man1/chmod.1.html
+      - https://learn.microsoft.com/en-us/windows/win32/secauthz/access-control-model
+
+  - id: identity-and-authentication-passwd-vs-sam-ad
+    title: "Identity and Authentication: passwd/shadow vs SAM/AD"
+    summary: "Study how local accounts, password storage, and centralized identity differ between Linux and Windows."
+    linux_focus: "/etc/passwd, /etc/shadow, PAM, NSS, LDAP integration."
+    windows_focus: "SAM database, Active Directory, Kerberos, domain join behavior."
+    practice: "Explain the difference between a local account and a centrally managed account in each OS."
+    reading_links:
+      - https://linux.die.net/man/8/pam
+      - https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview
+
+  - id: privilege-model-root-vs-administrator
+    title: "Privilege Model: root vs Administrator"
+    summary: "Compare elevated privilege concepts and how day-to-day administration differs between the two ecosystems."
+    linux_focus: "root account, sudo delegation, least privilege habits, capability model basics."
+    windows_focus: "Administrator accounts, UAC, token filtering, run-as elevation."
+    practice: "Describe why modern administration tries to avoid staying permanently elevated on both platforms."
+    reading_links:
+      - https://man7.org/linux/man-pages/man8/sudo.8.html
+      - https://learn.microsoft.com/en-us/windows/security/application-security/application-control/user-account-control/how-it-works
+
+  - id: security-model-capabilities-uac-defender
+    title: "Security Model: Capabilities, UAC, and Defender"
+    summary: "Study practical security differences including privilege separation, endpoint protection, and default hardening approaches."
+    linux_focus: "Linux capabilities, SELinux/AppArmor overview, distro hardening patterns."
+    windows_focus: "UAC, Microsoft Defender, SmartScreen, security baselines."
+    practice: "Explain how default protections differ for a casual desktop user on Linux versus Windows."
+    reading_links:
+      - https://man7.org/linux/man-pages/man7/capabilities.7.html
+      - https://learn.microsoft.com/en-us/windows/security/
+
+  - id: logging-journalctl-vs-event-viewer
+    title: "Logging: journalctl vs Event Viewer"
+    summary: "Learn how each platform records system events and how administrators investigate failures using native logs."
+    linux_focus: "journald, syslog concepts, log files under /var/log, journalctl filtering."
+    windows_focus: "Event Viewer, Windows Event Log channels, structured event records, PowerShell log queries."
+    practice: "Compare how you would investigate a failed service startup in Linux and Windows using logs."
+    reading_links:
+      - https://www.freedesktop.org/software/systemd/man/journalctl.html
+      - https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/wevtutil
+
+  - id: boot-process-grub-init-vs-bootmgr-winload
+    title: "Boot Process: GRUB/init vs Boot Manager/winload"
+    summary: "Study the startup pipeline from firmware to kernel to user session in both operating systems."
+    linux_focus: "UEFI or BIOS handoff, GRUB, initramfs, kernel init, systemd startup."
+    windows_focus: "UEFI or BIOS handoff, Windows Boot Manager, winload, kernel initialization, Session Manager."
+    practice: "Draw the boot chain for both systems and identify where boot problems can occur."
+    reading_links:
+      - https://wiki.archlinux.org/title/GRUB
+      - https://learn.microsoft.com/en-us/windows/client-management/client-tools/windows-boot-manager-overview
+
+  - id: driver-model-linux-modules-vs-wdm-wdf
+    title: "Driver Model: Linux Modules vs WDM/WDF"
+    summary: "Compare how hardware drivers are structured, loaded, and maintained in Linux and Windows."
+    linux_focus: "Loadable kernel modules, device model, sysfs, udev interaction."
+    windows_focus: "WDM, KMDF/UMDF, signed drivers, Plug and Play stack."
+    practice: "Explain why driver signing and compatibility can feel different between the two systems."
+    reading_links:
+      - https://www.kernel.org/doc/html/latest/driver-api/index.html
+      - https://learn.microsoft.com/en-us/windows-hardware/drivers/
+
+  - id: software-update-models
+    title: "Software Update Models"
+    summary: "Compare how operating systems and applications are updated, including centralization, cadence, and reboot behavior."
+    linux_focus: "Distro-managed updates, package repositories, kernel updates, optional rolling release models."
+    windows_focus: "Windows Update, cumulative updates, WSUS concepts, app updates from multiple channels."
+    practice: "Compare the operational impact of centralized OS plus package updates versus mixed vendor-specific update channels."
+    reading_links:
+      - https://ubuntu.com/server/docs/package-management
+      - https://learn.microsoft.com/en-us/windows/deployment/update/
+
+  - id: configuration-management-text-vs-registry-policy
+    title: "Configuration Management: Text Files vs Registry and Policy"
+    summary: "Study how system configuration is stored and managed across Linux and Windows."
+    linux_focus: "Text-based config under /etc, drop-in overrides, environment files, scripting-friendly edits."
+    windows_focus: "Registry, Group Policy, MMC tools, PowerShell configuration patterns."
+    practice: "Explain the trade-offs of plain text configuration versus centralized binary or policy stores."
+    reading_links:
+      - https://wiki.archlinux.org/title/System_maintenance
+      - https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/reg
+
+  - id: shell-and-automation-bash-vs-powershell
+    title: "Shell and Automation: Bash vs PowerShell"
+    summary: "Compare command-line philosophy, pipelines, scripting style, and automation strengths."
+    linux_focus: "Text streams, small composable tools, shell scripting, grep/sed/awk style workflows."
+    windows_focus: "Object pipelines, cmdlets, CIM/WMI integration, administration-focused scripting."
+    practice: "Solve the same admin task in both ecosystems and compare how the tooling shapes your thinking."
+    reading_links:
+      - https://www.gnu.org/software/bash/manual/bash.html
+      - https://learn.microsoft.com/en-us/powershell/scripting/overview
+
+  - id: process-inspection-ps-top-vs-task-manager-process-explorer
+    title: "Process Inspection: ps/top vs Task Manager/Process Explorer"
+    summary: "Learn how each system exposes running process information and how tools reflect underlying OS design."
+    linux_focus: "ps, top, htop, pstree, /proc filesystem."
+    windows_focus: "Task Manager, Resource Monitor, Process Explorer, performance counters."
+    practice: "Compare what process metadata is easiest to access by default on each platform."
+    reading_links:
+      - https://man7.org/linux/man-pages/man1/ps.1.html
+      - https://learn.microsoft.com/en-us/sysinternals/downloads/process-explorer
+
+  - id: memory-management-virtual-memory-comparison
+    title: "Memory Management and Virtual Memory"
+    summary: "Study how Linux and Windows manage RAM, paging, caching, and virtual address spaces."
+    linux_focus: "Page cache, swap, overcommit behavior, /proc memory visibility."
+    windows_focus: "Commit charge, pagefile, working sets, memory compression."
+    practice: "Explain how low-memory behavior can differ between Linux and Windows from an administrator's point of view."
+    reading_links:
+      - https://www.kernel.org/doc/gorman/html/understand/
+      - https://learn.microsoft.com/en-us/windows/win32/memory/memory-management
+
+  - id: networking-stack-comparison
+    title: "Networking Stack Comparison"
+    summary: "Compare how Linux and Windows expose networking, from interfaces and sockets to firewalling and troubleshooting tools."
+    linux_focus: "iproute2, netfilter/nftables, sockets, routing tables, systemd-networkd or NetworkManager."
+    windows_focus: "TCP/IP stack, Windows Filtering Platform, netsh, PowerShell networking cmdlets."
+    practice: "Compare how you would inspect routes, listening ports, and firewall rules on both systems."
+    reading_links:
+      - https://man7.org/linux/man-pages/man8/ip.8.html
+      - https://learn.microsoft.com/en-us/powershell/module/nettcpip/
+
+  - id: firewalling-netfilter-vs-windows-firewall
+    title: "Firewalling: netfilter/nftables vs Windows Firewall"
+    summary: "Study host-based firewall design and how policy is expressed in Linux and Windows."
+    linux_focus: "netfilter hooks, nftables rulesets, ufw as a frontend, packet filtering concepts."
+    windows_focus: "Windows Defender Firewall, profiles, inbound and outbound rules, WFP integration."
+    practice: "Write out how you would allow SSH on Linux and RDP on Windows while blocking unnecessary inbound traffic."
+    reading_links:
+      - https://wiki.nftables.org/wiki-nftables/index.php/Main_Page
+      - https://learn.microsoft.com/en-us/windows/security/operating-system-security/network-security/windows-firewall/
+
+  - id: remote-access-ssh-vs-rdp-winrm
+    title: "Remote Access: SSH vs RDP/WinRM"
+    summary: "Compare common remote administration methods and what they reveal about each platform's operational culture."
+    linux_focus: "SSH, terminal-centric remote workflows, key-based auth, tunneling."
+    windows_focus: "RDP, WinRM, PowerShell remoting, GUI and object-based admin patterns."
+    practice: "Explain when a terminal-only remote session is enough and when a graphical remote session becomes useful."
+    reading_links:
+      - https://man.openbsd.org/ssh
+      - https://learn.microsoft.com/en-us/powershell/scripting/security/remoting/winrm-security
+
+  - id: containerization-linux-namespaces-vs-windows-containers
+    title: "Containerization: Linux Namespaces vs Windows Containers"
+    summary: "Study how both platforms implement containers and what architectural assumptions make Linux containers dominant."
+    linux_focus: "Namespaces, cgroups, layered images, OCI ecosystem, Docker and container runtimes."
+    windows_focus: "Windows containers, process isolation vs Hyper-V isolation, compatibility requirements."
+    practice: "Explain why containers map naturally onto Linux primitives and what constraints exist on Windows containers."
+    reading_links:
+      - https://docs.docker.com/engine/security/
+      - https://learn.microsoft.com/en-us/virtualization/windowscontainers/about/
+
+  - id: virtualization-kvm-vs-hyperv
+    title: "Virtualization: KVM vs Hyper-V"
+    summary: "Compare built-in virtualization approaches and how each platform supports virtual machine workloads."
+    linux_focus: "KVM, QEMU, libvirt, hardware-assisted virtualization, host flexibility."
+    windows_focus: "Hyper-V architecture, integration services, management tooling, enterprise positioning."
+    practice: "Compare what is required to turn a normal installation into a VM host on Linux versus Windows."
+    reading_links:
+      - https://www.linux-kvm.org/page/Main_Page
+      - https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/
+
+  - id: filesharing-samba-vs-smb-windows-sharing
+    title: "File Sharing: Samba vs Native Windows Sharing"
+    summary: "Learn how cross-platform file sharing works and how SMB fits differently into Linux and Windows environments."
+    linux_focus: "Samba server, smbclient, mount.cifs, Linux permission mapping challenges."
+    windows_focus: "Native SMB sharing, share permissions plus NTFS ACLs, domain integration."
+    practice: "Explain why cross-platform SMB permission issues can be confusing and how you would troubleshoot them."
+    reading_links:
+      - https://wiki.samba.org/index.php/Main_Page
+      - https://learn.microsoft.com/en-us/windows-server/storage/file-server/file-server-smb-overview
+
+  - id: executable-formats-elf-vs-pe
+    title: "Executable Formats: ELF vs PE"
+    summary: "Compare how Linux and Windows represent executable files, libraries, and loaders."
+    linux_focus: "ELF binaries, shared objects, dynamic linker, ld.so behavior."
+    windows_focus: "PE format, DLLs, loader behavior, import tables."
+    practice: "Describe how the executable format influences debugging, dependency loading, and portability."
+    reading_links:
+      - https://man7.org/linux/man-pages/man5/elf.5.html
+      - https://learn.microsoft.com/en-us/windows/win32/debug/pe-format
+
+  - id: compatibility-layers-wine-wsl
+    title: "Compatibility Layers: Wine and WSL"
+    summary: "Study how each ecosystem handles running foreign software without full native equivalence."
+    linux_focus: "Wine translating Win32 APIs, compatibility trade-offs, user-space emulation patterns."
+    windows_focus: "WSL architecture, Linux userland on Windows, virtualization-backed compatibility."
+    practice: "Compare translation, emulation, and virtualization as strategies for compatibility."
+    reading_links:
+      - https://www.winehq.org/
+      - https://learn.microsoft.com/en-us/windows/wsl/about
+
+  - id: desktop-environment-and-ui-models
+    title: "Desktop Environment and UI Models"
+    summary: "Compare how the desktop stack is assembled in Linux versus how Windows presents a more integrated user environment."
+    linux_focus: "X11 and Wayland concepts, desktop environments, compositors, distribution choice."
+    windows_focus: "Explorer shell, integrated desktop stack, Win32 and modern UI coexistence."
+    practice: "Explain why Linux desktop experiences vary more widely across distributions than Windows desktops do."
+    reading_links:
+      - https://wayland.freedesktop.org/
+      - https://learn.microsoft.com/en-us/windows/apps/get-started/
+
+  - id: observability-procfs-sysfs-vs-perfmon-etw
+    title: "Observability: procfs/sysfs vs Performance Monitor/ETW"
+    summary: "Learn how each platform exposes system internals for monitoring, performance analysis, and troubleshooting."
+    linux_focus: "/proc, /sys, vmstat, iostat, perf tooling, text-oriented introspection."
+    windows_focus: "Performance Monitor, ETW, Resource Monitor, counters and trace sessions."
+    practice: "Compare the strengths of text-first observability with event and counter-driven observability."
+    reading_links:
+      - https://man7.org/linux/man-pages/man5/proc.5.html
+      - https://learn.microsoft.com/en-us/windows/win32/etw/event-tracing-portal
+
+  - id: licensing-and-ecosystem-model
+    title: "Licensing and Ecosystem Model"
+    summary: "Compare the open-source licensing culture around Linux with the commercial licensing and platform strategy around Windows."
+    linux_focus: "GPL, open-source collaboration, distro packaging communities, transparent source availability."
+    windows_focus: "Proprietary licensing, commercial support, closed-source platform strategy, partner ecosystem."
+    practice: "Explain how licensing affects distribution, customization, enterprise support, and learning opportunities."
+    reading_links:
+      - https://www.gnu.org/licenses/gpl-3.0.en.html
+      - https://www.microsoft.com/licensing/
+
+  - id: update-and-reboot-experience
+    title: "Update and Reboot Experience"
+    summary: "Compare user-facing update friction, reboot frequency, and maintenance expectations across Linux and Windows."
+    linux_focus: "Granular package updates, optional reboots for many packages, live patching possibilities."
+    windows_focus: "Centralized cumulative updates, restart prompts, coordinated servicing model."
+    practice: "Compare the maintenance experience for a personal workstation and a production server on both platforms."
+    reading_links:
+      - https://ubuntu.com/security/livepatch
+      - https://learn.microsoft.com/en-us/windows/deployment/update/waas-overview
+
+  - id: system-recovery-and-troubleshooting
+    title: "System Recovery and Troubleshooting"
+    summary: "Study how each operating system approaches safe mode, rescue environments, rollback, and repair workflows."
+    linux_focus: "Rescue shells, live media, chroot repair, logs and config rollback."
+    windows_focus: "Recovery Environment, Safe Mode, Startup Repair, system restore concepts."
+    practice: "Explain how you would recover a machine that fails to boot after a bad update in both systems."
+    reading_links:
+      - https://wiki.archlinux.org/title/Chroot
+      - https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-recovery-environment--windows-re--technical-reference
